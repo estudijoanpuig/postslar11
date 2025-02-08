@@ -234,7 +234,7 @@
                           
                                                     <?php
 // Defineix el directori on es troben les imatges
-$directory = 'C:\xampp\htdocs\LARAVEL\administracio\public/images/datatables';
+$directory = 'C:\xampp\htdocs\LARAVEL\postslar11\public\images\datatables';
 
 // Obté una llista de fitxers del directori
 $files = scandir($directory);
@@ -277,7 +277,7 @@ $images = array_filter($files, function($file) use ($directory) {
                                                         galleries</p>
                                                     <?php
 // Defineix el directori on es troben les imatges
-$directory = 'C:\xampp\htdocs\LARAVEL\administracio\public/images/galleries';
+$directory = 'C:\xampp\htdocs\LARAVEL\postslar11\public/images/galleries';
 
 // Obté una llista de fitxers del directori
 $files = scandir($directory);
@@ -317,7 +317,7 @@ $images = array_filter($files, function($file) use ($directory) {
                                                         presentacio i contingut</p>
                                                     <?php
 // Defineix el directori on es troben les imatges
-$directory = 'C:\xampp\htdocs\LARAVEL\administracio\public/images/contingut';
+$directory = 'C:\xampp\htdocs\LARAVEL\postslar11\public/images/contingut';
 
 // Obté una llista de fitxers del directori
 $files = scandir($directory);
