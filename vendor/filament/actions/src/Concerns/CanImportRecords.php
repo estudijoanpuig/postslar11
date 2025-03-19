@@ -32,7 +32,7 @@ use Illuminate\Support\Number;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\ValidationException;
-use League\Csv\ByteSequence;
+use League\Csv\Bom;
 use League\Csv\CharsetConverter;
 use League\Csv\Info;
 use League\Csv\Reader as CsvReader;
@@ -343,7 +343,7 @@ trait CanImportRecords
                     $columns = $this->getImporter()::getColumns();
 
                     $csv = Writer::createFromFileObject(new SplTempFileObject);
-                    $csv->setOutputBOM(ByteSequence::BOM_UTF8);
+                    $csv->setOutputBOM(Bom::Utf8);
 
                     if (filled($csvDelimiter = $this->getCsvDelimiter())) {
                         $csv->setDelimiter($csvDelimiter);
@@ -403,7 +403,7 @@ trait CanImportRecords
         $filePath = $file->getRealPath();
 
         if (config("filesystems.disks.{$fileDisk}.driver") !== 's3') {
-            $resource = fopen($filePath, mode: 'r');
+            $resource = $file->readStream();
         } else {
             /** @var AwsS3V3Adapter $s3Adapter */
             $s3Adapter = Storage::disk($fileDisk)->getAdapter();

@@ -57,6 +57,8 @@ export default function fileUploadFormComponent({
     maxFiles,
     maxSize,
     minSize,
+    maxParallelUploads,
+    mimeTypeMap,
     panelAspectRatio,
     panelLayout,
     placeholder,
@@ -122,6 +124,7 @@ export default function fileUploadFormComponent({
                 maxFiles,
                 maxFileSize: maxSize,
                 minFileSize: minSize,
+                ...(maxParallelUploads && { maxParallelUploads }),
                 styleButtonProcessItemPosition: uploadButtonPosition,
                 styleButtonRemoveItemPosition: removeUploadedFileButtonPosition,
                 styleItemPanelAspectRatio: itemPanelAspectRatio,
@@ -200,9 +203,15 @@ export default function fileUploadFormComponent({
                 },
                 fileValidateTypeDetectType: (source, detectedType) => {
                     return new Promise((resolve, reject) => {
+                        const extension = source.name
+                            .split('.')
+                            .pop()
+                            .toLowerCase()
                         const mimeType =
+                            mimeTypeMap[extension] ||
                             detectedType ||
-                            mime.getType(source.name.split('.').pop())
+                            mime.getType(extension)
+
                         mimeType ? resolve(mimeType) : reject()
                     })
                 },
