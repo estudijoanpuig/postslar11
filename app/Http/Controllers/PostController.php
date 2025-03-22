@@ -11,6 +11,38 @@ use Yajra\DataTables\DataTables;
 class PostController extends Controller
 {
 	
+	public function show($id)
+    {
+        // Obtenir el post amb la seva categoria
+        $post = Post::with('category')->findOrFail($id);
+
+        // Obtenir les etiquetes del post
+        $tags = Etiqueta::whereIn('id', function ($query) use ($id) {
+            $query->select('etiqueta_id')
+                  ->from('post_etiquetas')
+                  ->where('post_id', $id);
+        })->get();
+
+        // Obtenir el post anterior
+        $previousPost = Post::where('id', '<', $id)->orderBy('id', 'desc')->first();
+
+        // Obtenir el post següent
+        $nextPost = Post::where('id', '>', $id)->orderBy('id', 'asc')->first();
+
+        // Obtenir articles relacionats per etiquetes
+        $relatedPosts = Post::whereIn('id', function ($query) use ($tags) {
+            $query->select('post_id')
+                  ->from('post_etiquetas')
+                  ->whereIn('etiqueta_id', $tags->pluck('id'));
+        })
+        ->where('id', '!=', $id)
+        ->orderBy('created_at', 'desc')
+        ->limit(6)
+        ->get();
+
+        return view('posts.show', compact('post', 'tags', 'previousPost', 'nextPost', 'relatedPosts'));
+    }
+	
 	public function indexGallery(Request $request)
 {
     $query = Post::with(['category', 'etiquetas', 'books']); // 🔹 Afegim la relació amb books

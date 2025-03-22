@@ -418,11 +418,7 @@ echo '<a class="flex text-center mx-2 transition duration-150 ease-in-out rounde
 } else {
 echo '<li><span class="text-gray-500">Archivo hosts no encontrado.</span></li>';
 }
-?>									
-										
-                                            
-                                            
-                                            
+?>
                                         </div>
                                     </div>
                                 </div>

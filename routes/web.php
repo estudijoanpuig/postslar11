@@ -42,6 +42,7 @@ Route::get('/etiqueta/{id}', [PostController::class, 'filterByEtiqueta'])->name(
 Route::get('/posts/category/{id}', [PostController::class, 'filterByCategory'])->name('posts.category');
 Route::get('/posts/etiqueta/{id}', [PostController::class, 'filterByEtiqueta'])->name('posts.etiqueta');
 Route::get('/posts/detalle/{id}', [PostController::class, 'detalle'])->name('posts.detalle');
+Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
 
 Route::get('/welcome', function () {
     return view('welcome');

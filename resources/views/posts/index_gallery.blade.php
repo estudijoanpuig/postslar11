@@ -45,7 +45,7 @@
             <div class="masonry">
                 @foreach ($posts as $post)
                     <div class="masonry-item bg-white p-6 rounded-lg shadow-lg">
-                        <a href="{{ route('posts.detalle', $post->id) }}">
+                        <a href="{{ route('post.show', $post->id) }}">
                             <img src="/storage/{{ $post->img }}" class="w-full h-90 object-cover object-center mb-6"
                                 alt="{{ $post->title }}">
                             <h2 class="text-lg text-cyan-600 font-medium title-font mb-4 break-words">{{ $post->title }}</h2>
